@@ -1,11 +1,11 @@
 from typing import Optional
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 app = FastAPI()
 
 class User(BaseModel):
-    user_id: str
+    user_id: str = Field(regex="[A-Z]{1}\d{4}")
     name: str
     age: int
     comment: Optional[str] = None
