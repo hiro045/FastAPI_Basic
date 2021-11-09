@@ -1,6 +1,14 @@
+from typing import Optional
 from fastapi import FastAPI
+from pydantic import BaseModel
 
 app = FastAPI()
+
+class User(BaseModel):
+    user_id: str
+    name: str
+    age: int
+    comment: Optional[str] = None
 
 @app.get("/")
 async def root():
@@ -26,3 +34,7 @@ async def query_user(user_id: str):
         "name": "Taro",
         "age": 20
     }
+
+@app.post("/users")
+async def create_user(user: User):
+    return {"message": f"{user.name}さんの情報を登録しました。"}
